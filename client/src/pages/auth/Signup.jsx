@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 import AuthLayout from "../../components/layout/AuthLayout";
@@ -115,6 +116,18 @@ function Signup() {
           text="Create Account"
           type="submit"
         />
+        <p className="text-center text-sm text-slate-400">
+
+  Already have an account?{" "}
+
+  <Link
+    to="/login"
+    className="text-blue-400 hover:underline"
+  >
+    Login
+  </Link>
+
+</p>
 
       </form>
 

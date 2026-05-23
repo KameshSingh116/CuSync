@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -78,7 +79,18 @@ function Login() {
           text="Login"
           type="submit"
         />
+        <p className="text-center text-sm text-slate-400">
 
+  Don't have an account?{" "}
+
+  <Link
+    to="/signup"
+    className="text-blue-400 hover:underline"
+  >
+    Signup
+  </Link>
+
+</p>
       </form>
 
     </AuthLayout>
