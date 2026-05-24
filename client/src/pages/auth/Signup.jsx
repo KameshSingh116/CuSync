@@ -1,15 +1,15 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import AuthLayout from "../../components/layout/AuthLayout";
-
+import { logoutUser } from "../../services/authService";
 import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
 import { signUpUser } from "../../services/authService";
 
 function Signup() {
-
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -50,7 +50,14 @@ function Signup() {
     }
 
     alert("Signup Successful");
-    console.log(data);
+
+console.log(data);
+
+// FORCE LOGOUT
+await logoutUser();
+
+// REDIRECT TO LOGIN
+navigate("/login");
   };
 
   return (

@@ -1,5 +1,10 @@
+import { useAuth }
+from "../../context/AuthContext";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import {
+  useState,
+  useEffect,
+} from "react";
 import { useNavigate } from "react-router-dom";
 
 import AuthLayout from "../../components/layout/AuthLayout";
@@ -10,7 +15,14 @@ import Button from "../../components/ui/Button";
 import { loginUser } from "../../services/authService";
 
 function Login() {
+  const { user } = useAuth();
+  useEffect(() => {
 
+  if (user) {
+    navigate("/dashboard");
+  }
+
+}, [user]);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({

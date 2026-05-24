@@ -1,3 +1,5 @@
+import ProtectedRoute
+from "./ProtectedRoute";
 import {
   BrowserRouter,
   Routes,
@@ -33,9 +35,15 @@ function AppRoutes() {
         />
 
         <Route
-          path="/dashboard"
-          element={<Dashboard />}
-        />
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+
+      <Dashboard />
+
+    </ProtectedRoute>
+  }
+/>
 
       </Routes>
 
