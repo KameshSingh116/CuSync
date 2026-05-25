@@ -26,3 +26,12 @@ Earlier , the page was redirecting to dashboard dorectly after signup , but now 
 Some changes were also made to the main.jsx file for accomodating the new changes to the UI and the structure of the project.
 
 Radhe Radhe , Jai Hind !!
+
+Day 4
+
+Today i made the respective dashboards for the students, faculty and the admin. 
+So far main work like the attendence and the notice board stuff is mainly done in the students dashboard only .
+Through signup you can only access the student and the faculty portal , the admin portal for obvious reasons can't be made publically accesible.
+Soon the work and features for the faculty and the admin will be published along with additions and completion of the students portal.
+
+Till then radhe radhe Jai Hind!!
