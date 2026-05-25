@@ -1,12 +1,60 @@
+import Sidebar
+from "../../components/layout/Sidebar";
+
+import { useEffect, useState }
+from "react";
+
 import { useNavigate }
 from "react-router-dom";
+
+import { supabase }
+from "../../services/supabase";
+
+import StudentDashboard
+from "../student/StudentDashboard";
+
+import FacultyDashboard
+from "../faculty/FacultyDashboard";
+
+import AdminDashboard
+from "../admin/AdminDashboard";
 
 import { logoutUser }
 from "../../services/authService";
 
 function Dashboard() {
 
+  const [profile, setProfile] =
+    useState(null);
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return;
+
+    const { data, error } =
+      await supabase
+        .from("users")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+
+    if (error) {
+      console.log(error);
+      return;
+    }
+
+    setProfile(data);
+  };
 
   const handleLogout = async () => {
 
@@ -15,14 +63,36 @@ function Dashboard() {
     navigate("/login");
   };
 
-  return (
-    <div className="min-h-screen bg-slate-900 text-white p-10">
+  if (!profile) {
+    return (
+      <div className="min-h-screen bg-slate-900 text-white flex items-center justify-center">
 
-      <div className="flex justify-between items-center">
+        Loading Dashboard...
 
-        <h1 className="text-4xl font-bold">
-          Welcome to CuSync Dashboard
-        </h1>
+      </div>
+    );
+  }
+
+return (
+  <div className="flex min-h-screen bg-slate-900 text-white">
+
+    <Sidebar role={profile.role} />
+
+    <div className="flex-1">
+
+      <div className="flex justify-between items-center p-5 border-b border-slate-700">
+
+        <div>
+
+          <h1 className="text-2xl font-bold">
+            CuSync
+          </h1>
+
+          <p className="text-slate-400">
+            {profile.full_name}
+          </p>
+
+        </div>
 
         <button
           onClick={handleLogout}
@@ -33,8 +103,26 @@ function Dashboard() {
 
       </div>
 
+      <div className="p-10">
+
+        {profile.role === "student" &&
+          <StudentDashboard />
+        }
+
+        {profile.role === "faculty" &&
+          <FacultyDashboard />
+        }
+
+        {profile.role === "admin" &&
+          <AdminDashboard />
+        }
+
+      </div>
+
     </div>
-  );
+
+  </div>
+);
 }
 
 export default Dashboard;
